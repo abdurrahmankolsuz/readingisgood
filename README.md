@@ -19,4 +19,4 @@ Navigate to the root of the project. For building the project using command line
 
 Run service in command line. Navigate to *target* directory. 
 
-``` java -jar spring-boot-boilerplate.jar ```
+``` java -jar spring-boot-readingisgood.jar ```
