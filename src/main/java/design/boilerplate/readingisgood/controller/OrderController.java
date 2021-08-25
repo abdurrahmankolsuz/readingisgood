@@ -23,12 +23,11 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/order")
 public class OrderController {
 
 	private final OrderService orderService;
 
-	@PostMapping
+	@PostMapping("/place")
 	public ResponseEntity<RegistrationResponse> placeOrder(@Valid @RequestBody OrderRequest orderRequest) {
 
 		final RegistrationResponse registrationResponse = orderService.placeOrder(orderRequest);

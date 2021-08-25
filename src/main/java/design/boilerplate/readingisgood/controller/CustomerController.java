@@ -32,14 +32,6 @@ public class CustomerController {
 
     private final OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<RegistrationResponse> registrationRequest(@Valid @RequestBody RegistrationRequest registrationRequest) {
-
-        final RegistrationResponse registrationResponse = userService.registration(registrationRequest);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(registrationResponse);
-    }
-
     @GetMapping("/orders")
     public ResponseEntity<Map<String, Object>> getAllOrdersByCustomer(
             @RequestParam(required = false) String username,
