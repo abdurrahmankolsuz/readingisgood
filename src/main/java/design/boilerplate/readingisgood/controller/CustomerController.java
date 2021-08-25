@@ -4,6 +4,7 @@ import design.boilerplate.readingisgood.model.Order;
 import design.boilerplate.readingisgood.model.User;
 import design.boilerplate.readingisgood.security.dto.RegistrationRequest;
 import design.boilerplate.readingisgood.security.dto.RegistrationResponse;
+import design.boilerplate.readingisgood.security.service.OrderService;
 import design.boilerplate.readingisgood.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,8 @@ public class CustomerController {
 
     private final UserService userService;
 
+    private final OrderService orderService;
+
     @PostMapping
     public ResponseEntity<RegistrationResponse> registrationRequest(@Valid @RequestBody RegistrationRequest registrationRequest) {
 
@@ -45,7 +48,7 @@ public class CustomerController {
     ) {
 
         User user = userService.findByUsername(username);
-        Page<Order> pageOrders = userService.getOrdersByUser(user, page, size);
+        Page<Order> pageOrders = orderService.getOrdersByUser(user, page, size);
 
         Map<String, Object> response = new HashMap<>();
         response.put("orders", pageOrders.getContent());

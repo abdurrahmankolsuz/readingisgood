@@ -3,8 +3,7 @@ package design.boilerplate.readingisgood.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,17 +24,13 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "user_id")
-	private Long userId;
-
-	@Column(name = "created_date")
 	private Date createdDate;
 
 	@Column(name = "total_price")
 	private Double totalPrice;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "order_id", referencedColumnName = "id",insertable = false,updatable = false)
+	@JoinColumn(name = "order_item_id", referencedColumnName = "id",insertable = false,updatable = false)
 	private List<OrderItem> orderItems;
 
 	@ManyToOne(cascade = CascadeType.ALL)

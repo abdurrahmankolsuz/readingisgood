@@ -71,11 +71,6 @@ public class UserServiceImpl implements UserService {
         return UserMapper.INSTANCE.convertToAuthenticatedUserDto(user);
     }
 
-    @Override
-    public Page<Order> getOrdersByUser(User user, int page, int size) {
-        Pageable paging = PageRequest.of(page, size);
-        return userRepository.getOrdersByUserId(user.getId(), paging);
 
-    }
 
 }

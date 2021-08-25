@@ -20,8 +20,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
 	boolean existsByUsername(String username);
 
-	Page<Order> getOrdersByUserId(Long userId, Pageable pageable);
-
 
 
 }

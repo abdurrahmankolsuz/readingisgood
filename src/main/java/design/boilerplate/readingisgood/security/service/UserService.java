@@ -24,6 +24,5 @@ public interface UserService {
 
     AuthenticatedUserDto findAuthenticatedUserByUsername(String username);
 
-    Page<Order> getOrdersByUser(User user, int page, int size);
 
 }

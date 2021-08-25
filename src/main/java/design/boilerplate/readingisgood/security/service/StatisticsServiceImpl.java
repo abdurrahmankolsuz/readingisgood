@@ -11,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,7 +36,11 @@ public class StatisticsServiceImpl implements StatisticsService {
         LocalDateTime firstDate = DateUtils.getFirstDateOfMonth(year, month);
         LocalDateTime lastDate = DateUtils.getLastDateOfMonth(year, month);
 
-        List<Order> orderList = statisticsRepository.findByUserAndAllByCreatedDateAfterAndCreatedDateBefore(user, firstDate, lastDate);
+        List<Order> orderList = statisticsRepository.findAllByUserAndCreatedDateBetween(user, Date
+                .from(firstDate.atZone(ZoneId.systemDefault())
+                        .toInstant()), Date
+                .from(lastDate.atZone(ZoneId.systemDefault())
+                        .toInstant()));
 
         StatisticsResponse statisticsResponse = new StatisticsResponse();
         statisticsResponse.setTotalOrderCount(orderList.size());

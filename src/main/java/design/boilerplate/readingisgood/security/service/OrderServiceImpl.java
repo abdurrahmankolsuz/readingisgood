@@ -3,6 +3,7 @@ package design.boilerplate.readingisgood.security.service;
 import design.boilerplate.readingisgood.model.Book;
 import design.boilerplate.readingisgood.model.Order;
 import design.boilerplate.readingisgood.model.OrderItem;
+import design.boilerplate.readingisgood.model.User;
 import design.boilerplate.readingisgood.repository.BookRepository;
 import design.boilerplate.readingisgood.repository.OrderRepository;
 import design.boilerplate.readingisgood.security.dto.OrderRequest;
@@ -12,9 +13,14 @@ import design.boilerplate.readingisgood.security.mapper.OrderMapper;
 import design.boilerplate.readingisgood.utils.GeneralMessageAccessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,12 +63,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAllByCreatedDateAfterAndCreatedDateBefore(LocalDateTime after, LocalDateTime before) {
-        return orderRepository.findAllByCreatedDateAfterAndCreatedDateBefore(after, before);
+        return orderRepository.findAllByCreatedDateBetween(Date
+                .from(after.atZone(ZoneId.systemDefault())
+                        .toInstant()), Date
+                .from(before.atZone(ZoneId.systemDefault())
+                        .toInstant()));
     }
 
     @Override
     public Optional<Order> findByOrderId(Long orderId) {
         return orderRepository.findById(orderId);
+    }
+
+    @Override
+    public Page<Order> getOrdersByUser(User user, int page, int size) {
+        Pageable paging = PageRequest.of(page, size);
+        return orderRepository.getOrdersByUser(user, paging);
+
     }
 
 }
