@@ -25,7 +25,6 @@ public class BookRequest {
 	@NotEmpty(message = "{book_author_not_empty}")
 	private String author;
 
-	@NotEmpty(message = "{book_stock_not_empty}")
 	private Integer stock;
 
 
